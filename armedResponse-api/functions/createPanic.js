@@ -32,7 +32,7 @@ const handler = async req => {
       },
       body: JSON.stringify({
         success: 1,
-        message: trans.id
+        message: panic.id
       })
     };
   } catch (error) {

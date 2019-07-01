@@ -16,6 +16,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "./node_modules/.bin/serverless offline -s dev",
     "debug": "SET SLS_DEBUG=* && node --inspect %USERPROFILE%\\AppData\\Roaming\\npm\\node_modules\\serverless\\bin\\serverless offline -s dev --skipCacheInvalidation -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
