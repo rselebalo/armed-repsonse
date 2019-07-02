@@ -15,7 +15,7 @@ const getPanicById = panicId =>
         },
         json: true
       });
-      resolve(result.data);
+      resolve(result.data.message);
     } catch (error) {
       reject(error);
     }
@@ -48,7 +48,7 @@ const getAllPanics = (skip, take) =>
         method: "GET",
         url: `${
           global.BASE_API_URL
-        }/getAllPanics/${skip}/${take}`,
+        }/getAllPanics`,
         headers: {
           Authorization: `Bearer ${token}`,
           "content-type": "application/json"
@@ -67,8 +67,8 @@ const updatePanic = panic =>
       
       const token = sessionStorage.getItem("idToken");
       const result = await axios.request({
-        method: "PUT",
-        url: `${global.BASE_API_URL}/updatePanic/${panic.id}`,
+        method: "PATCH",
+        url: `${global.BASE_API_URL}/updatePanic/${panic._id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "content-type": "application/json"

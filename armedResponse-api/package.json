@@ -1,25 +1,31 @@
 {
-  "name": "armedresponse-api",
-  "version": "1.0.0",
-  "description": "Armed Response API",
-  "main": "handler.js",
-  "dependencies": {
-    "@types/pg": "^7.4.14",
-    "jsonwebtoken": "^8.5.1",
-    "jwk-to-pem": "^2.0.1",
-    "lodash": "^4.17.11",
-    "pg": "^7.11.0",
-    "reflect-metadata": "^0.1.13",
-    "request": "^2.88.0",
-    "serverless-offline": "^5.5.0",
-    "typeorm": "^0.2.18"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "start": "./node_modules/.bin/serverless offline -s dev",
-    "debug": "SET SLS_DEBUG=* && node --inspect %USERPROFILE%\\AppData\\Roaming\\npm\\node_modules\\serverless\\bin\\serverless offline -s dev --skipCacheInvalidation -c",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Rethabile Selebalo",
-  "license": "ISC"
+   "name": "armedresponse-api",
+   "version": "1.0.0",
+   "description": "Armed Response API",
+   "main": "handler.js",
+   "dependencies": {
+      "@types/pg": "^7.4.14",
+      "jsonwebtoken": "^8.5.1",
+      "jwk-to-pem": "^2.0.1",
+      "lodash": "^4.17.11",
+      "mongoose-sql": "^1.0.45",
+      "mysql": "^2.14.1",
+      "pg": "^7.11.0",
+      "reflect-metadata": "^0.1.10",
+      "request": "^2.88.0",
+      "serverless-offline": "^5.5.0",
+      "typeorm": "0.2.18"
+   },
+   "devDependencies": {
+      "ts-node": "3.3.0",
+      "@types/node": "^8.0.29",
+      "typescript": "3.3.3333"
+   },
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "debug": "SET SLS_DEBUG=* && node --inspect %USERPROFILE%\\AppData\\Roaming\\npm\\node_modules\\serverless\\bin\\serverless offline -s dev --skipCacheInvalidation -c",
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "author": "Rethabile Selebalo",
+   "license": "ISC"
 }

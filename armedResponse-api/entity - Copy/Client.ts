@@ -10,6 +10,9 @@ export class Client {
     public name: string = '';
 
     @Column()
+    public email: email = '';
+
+    @Column()
     public cellPhone: string = '';
 
     @Column()

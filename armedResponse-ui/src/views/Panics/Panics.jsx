@@ -37,12 +37,16 @@ class Panics extends Component {
         pageSizes: true,
         previousNext: true
       },
-      sort: [{ field: "panicId", dir: "desc" }],
+      sort: [{ field: "_id", dir: "desc" }],
       searchText: "",
       showLoadingIndicator: true
     };
   }
-  componentDidMount() {    
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      showLoadingIndicator: true
+    });
     this.getPanicList(
       this.props.match.params.status,
       this.state.skip,
@@ -58,33 +62,38 @@ class Panics extends Component {
     });
     this.getPanicList(status, this.state.skip, this.state.take);
   }
-  getPanicList(status, skip, take) {
+  getPanicList(status, skip, take) {    
     PanicsLogic.getAllPanics(status, skip, take)
-      .then(panic => {
-        const Panics = [];
+      .then(panic => {     
+        const Panics = [];   
         panic.message.Panics.map(t => {
-          const panicDateTime = !t.invoiceDateTime
-            ? moment().format("DD/MM/YYYY HH:mm")
-            : t.invoiceDateTime;
-          t.invoiceDateTime = !t.invoiceDateTime
-            ? panicDateTime
-            : moment(new Date(panicDateTime))
-                .clone()
-                .add(2, "hours")
-                .format("DD/MM/YYYY HH:mm");
-          t.dateCreated = moment(new Date(t.dateCreated))
+          let obj = {
+            _id: "",
+            clientNane: "",      
+            email: "",
+            clientCellPhone: "",
+            streetAddress:"", 
+            coordinates: "",
+            confirmed: false,
+            active: true,
+            timeLogged: ""
+          }
+          // format time to readable string
+          obj.timeLogged = moment(new Date(t.timeLogged))
             .clone()
             .format("DD/MM/YYYY HH:mm");
-          // .add(2, "hours");
-          t.total = _.isEmpty(t.total) ? t.total : t.total.replace(/,/g, "");
-          t.nett = _.isEmpty(t.nett) ? t.nett : t.nett.replace(/,/g, "");
-
-          Panics.push(t);
+          obj._id = t._id;
+          obj.clientName = t.client.name;
+          obj.clientCellPhone = t.client.cellPhone;
+          obj.streetAddress = t.streetAddress;
+          obj.coordinates = `(${t.latitude}, ${t.longitude})`; 
+          
+         Panics.push(obj);
         });
         this.setState({
           ...this.state,
-          PanicList: panic.message.panics,
-          total: panic.message.panicsTotal,
+          panicList: Panics,
+          total: Panics.length,
           showLoadingIndicator: false
         });
       })
@@ -99,7 +108,7 @@ class Panics extends Component {
       });
   }
   
-  modalConfirm(confirm) {
+  modalConfirm() {
       this.props.history.push(`panics/${this.state.status}`);
   }
   toggleAlert(show) {
@@ -132,9 +141,7 @@ class Panics extends Component {
         <div className="card">
           <div className="card-header">
             <FormGroup row className="my-0">
-              <Col md={8} sm={8} xs={8} className="mt-2">
-                {this.state.status.charAt(0).toUpperCase() +
-                  this.state.status.substring(1)}{" "}
+              <Col md={8} sm={8} xs={8} className="mt-2">                
                 Panics
               </Col>
             </FormGroup>
@@ -155,7 +162,7 @@ class Panics extends Component {
                 <ExcelExportColumn field="confirmed" title="Confirmed" />
                 <ExcelExportColumn field="active" title="Active" />
                 <ExcelExportColumn
-                  field="id"
+                  field="_id"
                   title="Panic Id"
                 />
               </ExcelExport>
@@ -202,7 +209,7 @@ class Panics extends Component {
                 </GridToolbar>
                 <GridColumn
                   filterable={false}
-                  field="id"
+                  field="_id"
                   title="Panic Id"
                   cell={props => (
                     <td>
@@ -210,35 +217,19 @@ class Panics extends Component {
                         role="button"
                         block
                         color="primary"
-                        onClick={this.handleClick}
-                        onKeyPress={async props => {
-                          try {
-                            return props.history.push(
-                              `/panic/${props.dataItem.id}`
-                            );
-                          } catch (error) {
-                            return this.setState({
-                              ...this.state,
-                              showAlert: true,
-                              alertMessage: `Failed to get Panic details. Error: ${
-                                error.message
-                              }`,
-                              alertType: "danger"
-                            });
-                          }
-                        }}
+                        onClick={this.handleClick}                        
                         tabIndex={0}
                         className="primary"
                       >
-                        {props.dataItem.panicId}
+                        {props.dataItem._id}
                       </Button>
                     </td>
                   )}
                 />
                 <GridColumn field="streetAddress" title="Street Address" />
                 <GridColumn field="coordinates" title="Coordinates" />
-                <GridColumn field="timeLogged" title="timeLogged" />
-                <GridColumn field="clientCellPhone" title="Client Cell Phone" />
+                <GridColumn field="timeLogged" title="Time Logged" />
+                <GridColumn field="clientCellPhone" title="Client's Cell Phone" />
                 <GridColumn field="clientName" title="Client Name" />
                 <GridColumn field="confirmed" title="Confirmed" />
                 <GridColumn field="active" title="Active" />                

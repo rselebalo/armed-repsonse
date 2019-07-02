@@ -1,8 +1,7 @@
-"use strict";
 require("dotenv").config();
 const db = require("../config/dbConfig");
-const Client = require("../entity/Client");
-const Panic = require("../entity/Panic");
+const Client = require("../models/Client");
+const Panic = require("../models/Panic");
 const _ = require("lodash");
 const moment = require("moment");
 

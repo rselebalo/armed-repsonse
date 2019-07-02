@@ -1,0 +1,27 @@
+{
+  "name": "armed-response-api",
+  "version": "1.0.0",
+  "description": "Armed Response API",
+  "main": "handler.js",
+  "scripts": {
+    "debug": "SET SLS_DEBUG=* && node --inspect %USERPROFILE%\\AppData\\Roaming\\npm\\node_modules\\serverless\\bin\\serverless offline -s dev --skipCacheInvalidation -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rethabile Selebalo",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.1",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.6.2",
+    "mongoose-sql": "^1.0.45",
+    "pg": "^7.11.0",
+    "request": "^2.88.0",
+    "serverless-offline": "^5.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0"
+  }
+}

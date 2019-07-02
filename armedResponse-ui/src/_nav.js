@@ -6,7 +6,6 @@ export default {
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
-        text: 'NEW',
       },
     },
     {
@@ -19,14 +18,9 @@ export default {
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: 'Active',
-      url: '/panics/active',
-      icon: 'icon-drop',
-    },
-    {
       name: 'All',
-      url: '/panics/all',
-      icon: 'icon-pencil',
+      url: '/panics',
+      icon: 'icon-drop',
     },
     {
       title: true,
@@ -38,12 +32,12 @@ export default {
     },
     {
       name: 'Register',
-      url: '/base',
+      url: '/client',
       icon: 'icon-puzzle'      
     },
     {
       name: 'Update',
-      url: '/buttons',
+      url: '/client',
       icon: 'icon-cursor',
     }
   ],

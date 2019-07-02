@@ -1,22 +1,26 @@
-'use strict';
 "use strict";
-require("dotenv").config();
+const mongoose = require("mongoose");
 const db = require("../config/dbConfig");
-const Panic = require("../entity/Panic");
-const _ = require("lodash");
-const moment = require("moment");
+const Panic = require("../models/Panic");
 
 
 const handler = async req => {
   try {
-
+    const { id } = req.pathParameters;
+    const data = JSON.parse(req.body);
     const connection = await db.connectToDatabase();
 
-    // get all panics
+    // update panic
     
-    const panics = await connection.getRepository(Panic).createQueryBuilder("panic")
-    .leftJoinAndSelect("panic.client", "client")
-    .getMany();    
+    const panic = await Panic.findByIdAndUpdate(mongoose.Types.ObjectId(id),
+                    {
+                      streetAddress:  data.streetAddress,
+                      longitude: data.long,
+                      latitude:  data.lat,
+                      active:  data.active,
+                      confirmed: data.confirmed
+                  }).exec() 
+       
 
     return {
       statusCode: 200,
@@ -25,7 +29,7 @@ const handler = async req => {
       },
       body: JSON.stringify({
         success: 1,
-        panics
+        message: panic.id
       })
     };
   } catch (error) {

@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
-import Client from './Client';
+import { Client } from './Client';
+import { Respondent } from './Respondent';
 
 @Entity()
 export class Panic {
@@ -8,6 +9,9 @@ export class Panic {
 
     @ManyToOne(type => Client, client => client.id)
     client: Client;
+
+    @ManyToOne(type => Respondent, respondent => respondent.id)
+    respondent: Respondent;
 
     @Column()
     public streetAddress: string = '';
@@ -26,6 +30,9 @@ export class Panic {
 
     @Column()
     public confirmed: Boolean = false;
+
+    @Column()
+    public timeResolved: Date ;
 }
 
 export default Panic;

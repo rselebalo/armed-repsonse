@@ -1,8 +1,7 @@
-import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+require('reflect-metadata');
+const { createConnection } = require('typeorm');
 
 let isConnected;
-
 const connectToDatabase = async () => {
   try {
     if (isConnected) {
@@ -12,7 +11,7 @@ const connectToDatabase = async () => {
 
     console.log("=> using new database connection");
     const dbConnection = await createConnection();
-    isConnected = db.connections[0].readyState;
+    isConnected = dbConnection.isConnected;
     console.log("Connected...");
 
     return Promise.resolve(dbConnection);

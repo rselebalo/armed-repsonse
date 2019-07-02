@@ -77,32 +77,41 @@ functions:
           authorizer: authorizerFunc
           cors: 
             allow: "*"
+  getPanicById:
+    handler: src/functions/getPanicById.handler
+    name: ArmedResponse_getPanicById
+    events:
+      - http:
+          path: panic/{id}
+          method: get
+          cors: true
+          authorizer: authorizerFunc 
   getAllPanics:
     handler: src/functions/getAllPanics.handler
-    name: ArmedResponse_getPanics
+    name: ArmedResponse_getAllPanics
     events:
       - http:
           path: getAllPanics
           method: get
           cors: true
-          authorizer: authorizerFunc 
-  getUserPanics:
-    handler: src/functions/getUserPanics.handler
-    name: ArmedResponse_getUserPanics
-    events:
-      - http:
-          path: getUserPanics/{userId}
-          method: get
-          cors: true
           authorizer: authorizerFunc         
   updatePanic:
-    handler: functions/updatePanic.handler
+    handler: src/functions/updatePanic.handler
     name: ArmedResponse_updatePanic
     events:
       - http:
-          path: updtatePanic
-          method: put
+          path: updatePanic/{id}
+          method: patch
           cors: true
           authorizer: authorizerFunc 
+  searchPanic:
+    handler: src/functions/searchPanic.handler
+    name: ArmedResponse_searchPanic
+    events:
+      - http:
+          path: searchPanic/{searchTerm}
+          method: get
+          cors: true
+          authorizer: authorizerFunc         
 plugins:
   - serverless-offline
