@@ -35,5 +35,6 @@ Run the container locally
      - docker run --name armedresponse -p 80:80 selebalo101/armed-response-ui
      
 Log in:
+  - url: http:localhost
   - username: user@armedresponse.co.za
   - password: armedresponse@123
