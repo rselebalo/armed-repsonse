@@ -5,7 +5,7 @@
    "main": "handler.js",
    "dependencies": {
       "@types/pg": "^7.4.14",
-      "jsonwebtoken": "^8.5.1",
+      "jsonwebtoken": "^9.0.0",
       "jwk-to-pem": "^2.0.1",
       "lodash": "^4.17.11",
       "mongoose-sql": "^1.0.45",
